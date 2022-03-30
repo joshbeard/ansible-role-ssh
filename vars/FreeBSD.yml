@@ -1,0 +1,2 @@
+sshd_config_group: wheel
+sshd_service_name: sshd

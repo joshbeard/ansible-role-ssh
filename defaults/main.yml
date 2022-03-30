@@ -1,0 +1,43 @@
+# Allow reloading the sshd service
+sshd_allow_reload: true
+
+# Absolute path to sshd_config file
+sshd_config_file: /etc/ssh/sshd_config
+# Config file owner/group/mode
+sshd_config_owner: root
+sshd_config_group: root
+sshd_config_mode: '0644'
+# Boolean toggles backing up the sshd_config file before replacing
+sshd_config_backup: false
+
+# Service name for SSH
+sshd_service_name: sshd
+# Manage the service
+sshd_manage_service: true
+
+# Path to the 'sshd' binary
+sshd_binary: /usr/sbin/sshd
+
+# List of config lines to include in sshd_config.
+# This key is included in templates as well as a "sshd_config" key.
+sshd_config_common:
+  - Port 22
+  - PrintMotd yes
+  - AllowGroups ssh
+  - LogLevel VERBOSE
+  - MaxAuthTries 2
+  - AuthorizedKeysFile .ssh/authorized_keys
+  - ChallengeResponseAuthentication no
+  - UsePAM no
+  - AllowAgentForwarding no
+  - AllowTcpForwarding no
+  - X11Forwarding no
+  - TCPKeepAlive no
+  - Compression no
+  - ClientAliveCountMax 2
+  - UseDNS no
+  - VersionAddendum none
+  - Subsystem sftp /usr/libexec/sftp-server
+
+# Specify extra sshd config options to append to the config file.
+sshd_config: []

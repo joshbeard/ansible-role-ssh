@@ -1,0 +1,25 @@
+# Rudimentary Ansible role for managing sshd_config file and service.
+- name: "SSH | Load OS Variables"
+  include_vars: '{{ item }}'
+  with_first_found:
+    - '{{ ansible_os_family }}.yml'
+
+- name: "SSH | Server Configuration"
+  template:
+    src: sshd_config.j2
+    dest: "{{ sshd_config_file }}"
+    owner: "{{ sshd_config_owner }}"
+    group: "{{ sshd_config_group }}"
+    mode: "{{ sshd_config_mode }}"
+    validate: >-
+      {{ sshd_binary }} -t -f %s
+    backup: "{{ sshd_config_backup }}"
+  notify: reload_sshd
+
+- name: "SSH | Service"
+  service:
+    name: "{{ sshd_service_name }}"
+    enabled: true
+    state: started
+  when:
+    - sshd_manage_service|bool

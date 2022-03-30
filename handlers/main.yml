@@ -1,0 +1,7 @@
+- name: "SSH | Reload the SSH service"
+  service:
+    name: "{{ sshd_service_name }}"
+    state: reloaded
+  when:
+    - sshd_allow_reload|bool
+  listen: reload_sshd

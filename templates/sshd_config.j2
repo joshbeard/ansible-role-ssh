@@ -1,0 +1,13 @@
+# {{ ansible_managed }}
+# {{ ansible_role_name }}
+
+{% if sshd_allow_groups %}
+AllowGroups {{ sshd_allow_groups }}
+{% endif %}
+{% for line in sshd_config_common %}
+{{ line }}
+{% endfor %}
+
+{% for line in sshd_config %}
+{{ line }}
+{% endfor %}

@@ -1,0 +1,2 @@
+sshd_config_group: root
+sshd_service_name: sshd
